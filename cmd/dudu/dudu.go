@@ -7,7 +7,7 @@ import (
 	"strconv"
 	"strings"
 
-	dudu "git.lupinelab.co.uk/jedrw/dudu/internal"
+	dudu "git.lupinelab.co.uk/lupinelab/dudu/internal"
 	"github.com/spf13/cobra"
 )
 

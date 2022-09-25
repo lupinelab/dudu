@@ -1,4 +1,4 @@
-module git.lupinelab.co.uk/jedrw/dudu
+module git.lupinelab.co.uk/lupinelab/dudu
 
 go 1.19
 

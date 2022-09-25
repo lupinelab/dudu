@@ -6,7 +6,7 @@ import (
 	"os/exec"
 	"strconv"
 
-	"git.lupinelab.co.uk/jedrw/dudu/cmd/dudu"
+	"git.lupinelab.co.uk/lupinelab/dudu/cmd/dudu"
 )
 
 func checkSudo() string {
