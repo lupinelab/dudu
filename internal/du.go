@@ -22,8 +22,11 @@ func ParseDuData(rawDuData []byte) map[string]int {
 
 func Du(arg string) ([]byte, error) {
 	// Run the du command
-	duCmd := "du -s --exclude=/{proc,sys,dev,run,home} " + arg + "*"
-	du := exec.Command("/bin/sh", "-c", string(duCmd))
+	if arg[len(arg)-1:] != "/" {
+		arg = arg + "/"
+	}
+	duCmd := "du --summarize --exclude=proc --exclude=sys --exclude=dev --exclude=run --exclude=home " + arg + "*"
+	du := exec.Command("/bin/sh", "-c", duCmd)
 	rawDu, err := du.CombinedOutput()
 
 	return rawDu, err
