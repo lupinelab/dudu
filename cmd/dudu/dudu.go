@@ -14,7 +14,7 @@ import (
 var TempDir = os.TempDir() + "/dudu"
 
 var duduCmd = &cobra.Command{
-	Use:   "dudu",
+	Use:   "dudu <path>",
 	Short: "dudu shows the difference in size of each folder at the specified path between each run or since the first run",
 	Args:  cobra.ExactArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
@@ -62,6 +62,8 @@ var duduCmd = &cobra.Command{
 }
 
 func init() {
+	duduCmd.PersistentFlags().BoolP("help", "h", false, "Print usage")
+	duduCmd.PersistentFlags().Lookup("help").Hidden = true
 	duduCmd.CompletionOptions.DisableDefaultCmd = true
 }
 
