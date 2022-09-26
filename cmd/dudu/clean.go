@@ -10,7 +10,7 @@ import (
 )
 
 func init() {
-	cleanCmd.Flags().BoolP("all", "a", false, "all paths")
+	cleanCmd.Flags().BoolP("all", "", false, "all records")
 	duduCmd.AddCommand(cleanCmd)
 }
 
@@ -29,7 +29,7 @@ var cleanCmd = &cobra.Command{
 			fmt.Printf("Removed %v records\n", count)
 		} else {
 			if len(args) < 1 {
-				fmt.Println("Please specify a run path to clean")
+				fmt.Println("Please specify a run path to clean or run \"dudu clean --all\" to clean all records")
 				return
 			} else {
 				filePaths, err := filepath.Glob(TempDir + "/dudu" + (strings.ReplaceAll(args[0], "/", ".")) + ".*")
