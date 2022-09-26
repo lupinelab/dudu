@@ -11,7 +11,7 @@ func Du(arg string) ([]byte, error) {
 	if arg[len(arg)-1:] != "/" {
 		arg = arg + "/"
 	}
-	duCmd := "du --summarize --exclude=proc --exclude=sys --exclude=dev --exclude=run --exclude=home " + arg + "*"
+	duCmd := "du --summarize --exclude=proc --exclude=sys --exclude=dev --exclude=run --exclude=home --one-file-system " + arg + "*"
 	du := exec.Command("/bin/sh", "-c", duCmd)
 	rawDu, err := du.CombinedOutput()
 
