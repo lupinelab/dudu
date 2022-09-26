@@ -40,7 +40,7 @@ var lastCmd = &cobra.Command{
 		// convert rawDuThisRun to map[string]int
 		duDataThisRun := dudu.ParseDuData(duRawThisRun)
 
-		// convert compareAgainst run rawDu to map[string]int
+		// convert compareTarget rawDu to map[string]int
 		rawDuCompareTarget, err := os.ReadFile(TempDir + "/dudu." + strings.ReplaceAll(args[0], "/", ".") + "." + compareTarget)
 		duDataCompareTarget := dudu.ParseDuData(rawDuCompareTarget)
 
@@ -49,13 +49,15 @@ var lastCmd = &cobra.Command{
 		if err != nil {
 			fmt.Println(err)
 		}
-
 		defer duduLastFile.Close()
 
 		// Write output to file
 		_, err = duduLastFile.WriteString(string(duRawThisRun))
+		if err != nil {
+			fmt.Println(err)
+		}
 
-		// Print output
+		// Print comparison
 		keys := make([]string, 0, len(duDataThisRun))
 		for k := range duDataThisRun {
 			keys = append(keys, k)
@@ -64,14 +66,14 @@ var lastCmd = &cobra.Command{
 		sort.Strings(keys)
 
 		for _, k := range keys {
-			space := strings.Repeat(" ", 20 - len(strconv.Itoa(duDataThisRun[k])))
-			change := strconv.Itoa((duDataThisRun[k] - duDataCompareTarget[k]) / 1024) + "M"
+			space := strings.Repeat(" ", 20-len(strconv.Itoa(duDataThisRun[k])))
+			change := strconv.Itoa((duDataThisRun[k]-duDataCompareTarget[k])/1024) + "M"
 			fmt.Printf("%d%v%v", duDataThisRun[k], space, k)
 			if change[0:1] == "-" {
-			fmt.Printf(" %v\n", color.GreenString(change))
+				fmt.Printf(" %v\n", color.GreenString(change))
 			} else if change[0:len(change)-1] == "0" {
 				fmt.Printf(" %v\n", color.YellowString(change))
-			} else{
+			} else {
 				fmt.Printf(" %v\n", color.RedString(change))
 			}
 		}

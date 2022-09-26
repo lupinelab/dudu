@@ -3,6 +3,7 @@ package dudu
 import (
 	"fmt"
 	"os"
+	"path/filepath"
 	"sort"
 	"strconv"
 	"strings"
@@ -30,18 +31,21 @@ var duduCmd = &cobra.Command{
 		}
 
 		// Make file to write output into
-		// if args[0] == "/" {
-		// 	args[0] = "root"
-		// }
-		duduFirstFile, err := os.Create(TempDir + "/dudu." + strings.ReplaceAll(args[0], "/", ".") + ".first")
+		filePath, err := filepath.Abs(args[0])
 		if err != nil {
 			fmt.Println(err)
 		}
-
+		duduFirstFile, err := os.Create(TempDir + "/dudu" + strings.ReplaceAll(filePath, "/", ".") + ".first")
+		if err != nil {
+			fmt.Println(err)
+		}
 		defer duduFirstFile.Close()
 
 		// Write output to file
 		_, err = duduFirstFile.WriteString(string(rawDu))
+		if err != nil {
+			fmt.Println(err)
+		}
 
 		// convert rawDu to map[string]int
 		thisduData := dudu.ParseDuData(rawDu)

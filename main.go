@@ -24,5 +24,4 @@ func main() {
 		return
 	}
 	dudu.Execute()
-	// fmt.Print(dudu.Du())
 }
