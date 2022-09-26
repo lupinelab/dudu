@@ -12,6 +12,12 @@ import (
 	"github.com/spf13/cobra"
 )
 
+func init() {
+	duduCmd.PersistentFlags().BoolP("help", "h", false, "Print usage")
+	duduCmd.PersistentFlags().Lookup("help").Hidden = true
+	duduCmd.CompletionOptions.DisableDefaultCmd = true
+}
+
 var TempDir = os.TempDir() + "/dudu"
 
 var duduCmd = &cobra.Command{
@@ -63,12 +69,6 @@ var duduCmd = &cobra.Command{
 			fmt.Printf("%d%v%v\n", thisduData[k], space, k)
 		}
 	},
-}
-
-func init() {
-	duduCmd.PersistentFlags().BoolP("help", "h", false, "Print usage")
-	duduCmd.PersistentFlags().Lookup("help").Hidden = true
-	duduCmd.CompletionOptions.DisableDefaultCmd = true
 }
 
 func Execute() error {

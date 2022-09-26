@@ -21,7 +21,7 @@ var lastCmd = &cobra.Command{
 	Short: "Show the difference between this run and the last",
 	Args:  cobra.ExactArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
-		compareTarget := "last"
+		compareTarget := "last <path>"
 		// Check if there has been a run we can compare against
 		if _, err := os.Stat(TempDir + "/dudu." + strings.ReplaceAll(args[0], "/", ".") + ".last"); os.IsNotExist(err) {
 			if _, err := os.Stat(TempDir + "/dudu." + strings.ReplaceAll(args[0], "/", ".") + ".first"); os.IsNotExist(err) {
