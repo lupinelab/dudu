@@ -22,7 +22,7 @@ var totalCmd = &cobra.Command{
 	Args:  cobra.ExactArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
 		// Check if there has been a run already
-		if _, err := os.Stat(TempDir + "/dudu." + strings.ReplaceAll(args[0], "/", ".") + ".first"); os.IsNotExist(err) {
+		if _, err := os.Stat(TempDir + "/dudu" + strings.ReplaceAll(args[0], "/", ".") + ".first"); os.IsNotExist(err) {
 			fmt.Println("No previous run found, please run \"dudu <path>\"")
 			return
 		}
@@ -34,7 +34,7 @@ var totalCmd = &cobra.Command{
 		}
 
 		// Make file to write output into
-		duduLastFile, err := os.Create(TempDir + "/dudu." + strings.ReplaceAll(args[0], "/", ".") + ".last")
+		duduLastFile, err := os.Create(TempDir + "/dudu" + strings.ReplaceAll(args[0], "/", ".") + ".last")
 		if err != nil {
 			fmt.Println(err)
 		}
@@ -47,7 +47,7 @@ var totalCmd = &cobra.Command{
 		duDataThisRun := dudu.ParseDuData(duRawThisRun)
 
 		// convert firstRun rawDu to map[string]int
-		rawDuFirstRun, err := os.ReadFile(TempDir + "/dudu." + strings.ReplaceAll(args[0], "/", ".") + ".first")
+		rawDuFirstRun, err := os.ReadFile(TempDir + "/dudu" + strings.ReplaceAll(args[0], "/", ".") + ".first")
 		duDataFirstRun := dudu.ParseDuData(rawDuFirstRun)
 
 		// Print comparision

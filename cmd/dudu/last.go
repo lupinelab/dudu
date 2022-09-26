@@ -23,8 +23,8 @@ var lastCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		compareTarget := "last <path>"
 		// Check if there has been a run we can compare against
-		if _, err := os.Stat(TempDir + "/dudu." + strings.ReplaceAll(args[0], "/", ".") + ".last"); os.IsNotExist(err) {
-			if _, err := os.Stat(TempDir + "/dudu." + strings.ReplaceAll(args[0], "/", ".") + ".first"); os.IsNotExist(err) {
+		if _, err := os.Stat(TempDir + "/dudu" + strings.ReplaceAll(args[0], "/", ".") + ".last"); os.IsNotExist(err) {
+			if _, err := os.Stat(TempDir + "/dudu" + strings.ReplaceAll(args[0], "/", ".") + ".first"); os.IsNotExist(err) {
 				fmt.Println("No previous run found, please run \"dudu <path>\"")
 				return
 			}
@@ -41,11 +41,11 @@ var lastCmd = &cobra.Command{
 		duDataThisRun := dudu.ParseDuData(duRawThisRun)
 
 		// convert compareTarget rawDu to map[string]int
-		rawDuCompareTarget, err := os.ReadFile(TempDir + "/dudu." + strings.ReplaceAll(args[0], "/", ".") + "." + compareTarget)
+		rawDuCompareTarget, err := os.ReadFile(TempDir + "/dudu" + strings.ReplaceAll(args[0], "/", ".") + "." + compareTarget)
 		duDataCompareTarget := dudu.ParseDuData(rawDuCompareTarget)
 
 		// Make file to write output into
-		duduLastFile, err := os.Create(TempDir + "/dudu." + strings.ReplaceAll(args[0], "/", ".") + ".last")
+		duduLastFile, err := os.Create(TempDir + "/dudu" + strings.ReplaceAll(args[0], "/", ".") + ".last")
 		if err != nil {
 			fmt.Println(err)
 		}
