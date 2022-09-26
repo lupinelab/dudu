@@ -10,7 +10,7 @@ import (
 )
 
 func init() {
-	cleanCmd.Flags().BoolP("all", "", false, "all records")
+	cleanCmd.Flags().Bool("all", false, "all records")
 	duduCmd.AddCommand(cleanCmd)
 }
 
