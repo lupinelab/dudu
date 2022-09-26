@@ -63,7 +63,8 @@ var duduCmd = &cobra.Command{
 		}
 
 		sort.Strings(keys)
-
+		
+		fmt.Println("FIRST\n=====")
 		for _, k := range keys {
 			space := strings.Repeat(" ", 20-len(strconv.Itoa(thisduData[k])))
 			fmt.Printf("%d%v%v\n", thisduData[k], space, k)

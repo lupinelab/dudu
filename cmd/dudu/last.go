@@ -21,7 +21,7 @@ var lastCmd = &cobra.Command{
 	Short: "Show the difference between this run and the last",
 	Args:  cobra.ExactArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
-		compareTarget := "last <path>"
+		compareTarget := "last"
 		// Check if there has been a run we can compare against
 		if _, err := os.Stat(TempDir + "/dudu" + strings.ReplaceAll(args[0], "/", ".") + ".last"); os.IsNotExist(err) {
 			if _, err := os.Stat(TempDir + "/dudu" + strings.ReplaceAll(args[0], "/", ".") + ".first"); os.IsNotExist(err) {
@@ -65,6 +65,7 @@ var lastCmd = &cobra.Command{
 
 		sort.Strings(keys)
 
+		fmt.Println("LAST\n====")
 		for _, k := range keys {
 			space := strings.Repeat(" ", 20-len(strconv.Itoa(duDataThisRun[k])))
 			change := strconv.Itoa((duDataThisRun[k]-duDataCompareTarget[k])/1024) + "M"

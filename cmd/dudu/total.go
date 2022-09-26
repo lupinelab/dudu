@@ -58,6 +58,7 @@ var totalCmd = &cobra.Command{
 
 		sort.Strings(keys)
 
+		fmt.Println("TOTAL\n=====")
 		for _, k := range keys {
 			space := strings.Repeat(" ", 20-len(strconv.Itoa(duDataThisRun[k])))
 			change := strconv.Itoa((duDataThisRun[k]-duDataFirstRun[k])/1024) + "M"
