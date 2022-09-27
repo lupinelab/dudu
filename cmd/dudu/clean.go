@@ -9,13 +9,13 @@ import (
 	"github.com/spf13/cobra"
 )
 
-func init() {
-	cleanCmd.Flags().Bool("all", false, "all records")
-	duduCmd.AddCommand(cleanCmd)
-}
+// func init() {
+// 	cleanCmd.Flags().Bool("all", false, "all records")
+// 	duduCmd.AddCommand(cleanCmd)
+// }
 
 var cleanCmd = &cobra.Command{
-	Use:   "clean <path>",
+	Use:   "clean [path]",
 	Short: "Remove records of previous runs",
 	Run: func(cmd *cobra.Command, args []string) {
 		count := 0
@@ -23,18 +23,23 @@ var cleanCmd = &cobra.Command{
 		if allFlag == true {
 			files, _ := os.ReadDir(TempDir)
 			for _, file := range files {
-				os.Remove(TempDir + "/" + file.Name())
+				err := os.Remove(TempDir + "/" + file.Name())
+				if err != nil {
+					fmt.Println(err.Error())
+					return
+				}
 				count++
 			}
 			fmt.Printf("Removed %v records\n", count)
 		} else {
 			if len(args) < 1 {
-				fmt.Println("Please specify a run path to clean or run \"dudu clean --all\" to clean all records")
+				fmt.Println("Please specify a run path to clean or use \"dudu clean --all\" to clean all records")
 				return
 			} else {
 				filePaths, err := filepath.Glob(TempDir + "/dudu" + (strings.ReplaceAll(args[0], "/", ".")) + ".*")
 				if err != nil {
-					fmt.Println(err)
+					fmt.Println(err.Error())
+					return
 				}
 				for _, file := range filePaths {
 					os.Remove(file)
