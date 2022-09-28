@@ -59,6 +59,6 @@ var lastCmd = &cobra.Command{
 		}
 
 		// Print comparison
-		dudu.PrintDuduComparison(cmd, duduThisRun, duduCompareTarget)
+		dudu.PrintDuduComparison(cmd, args, duduThisRun, duduCompareTarget)
 	},
 }

@@ -35,7 +35,14 @@ func ParseDuData(rawDuData []byte) map[string]int {
 	return duData
 }
 
-func PrintDuduComparison(cmd *cobra.Command, thisRun map[string]int, comparisonRun map[string]int) {
+func PrintDuduComparison(cmd *cobra.Command, args []string,  thisRun map[string]int, comparisonRun map[string]int) {
+	switch command := cmd.Name(); {
+	case command == "last":
+		fmt.Printf("LAST - %v\n", args[0])
+	case command == "total":
+		fmt.Printf("TOTAL - %v\n", args[0])
+	}
+
 	keys := make([]string, 0, len(thisRun))
 	for k := range thisRun {
 		keys = append(keys, k)
@@ -43,12 +50,6 @@ func PrintDuduComparison(cmd *cobra.Command, thisRun map[string]int, comparisonR
 
 	sort.Strings(keys)
 
-	switch command := cmd.Name(); {
-	case command == "last":
-		fmt.Println("LAST\n====")
-	case command == "total":
-		fmt.Println("TOTAL\n=====")
-	}
 	for _, k := range keys {
 		size := strconv.Itoa(thisRun[k])
 		change := strconv.Itoa((thisRun[k] - comparisonRun[k]))

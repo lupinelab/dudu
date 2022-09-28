@@ -54,6 +54,6 @@ var totalCmd = &cobra.Command{
 		duduCompareTarget := dudu.ParseDuData(rawDuCompareTarget)
 
 		// Print comparision
-		dudu.PrintDuduComparison(cmd, duduThisRun, duduCompareTarget)
+		dudu.PrintDuduComparison(cmd, args, duduThisRun, duduCompareTarget)
 	},
 }

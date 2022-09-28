@@ -73,7 +73,7 @@ var duduCmd = &cobra.Command{
 
 		sort.Strings(keys)
 
-		fmt.Println("FIRST\n=====")
+		fmt.Printf("FIRST - %v\n", args[0])
 		for _, k := range keys {
 			size := strconv.Itoa(thisduData[k])
 			mFlag, _ := cmd.Flags().GetBool("mebibytes")
