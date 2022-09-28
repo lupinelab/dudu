@@ -8,7 +8,6 @@ import (
 	"strconv"
 	"strings"
 
-	//dudu "git.lupinelab.co.uk/lupinelab/dudu/internal"
 	dudu "git.lupinelab.co.uk/lupinelab/dudu/internal"
 	"github.com/spf13/cobra"
 )
@@ -35,7 +34,7 @@ var duduCmd = &cobra.Command{
 			fmt.Println(err.Error())
 			return
 		}
-		
+
 		// Run the dudu
 		rawDu, err := dudu.Du(filePath)
 		if err != nil {
