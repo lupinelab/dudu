@@ -9,11 +9,6 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// func init() {
-// 	cleanCmd.Flags().Bool("all", false, "all records")
-// 	duduCmd.AddCommand(cleanCmd)
-// }
-
 var cleanCmd = &cobra.Command{
 	Use:   "clean [path]",
 	Short: "Remove records of previous runs",

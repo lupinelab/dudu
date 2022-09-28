@@ -9,10 +9,6 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// func init() {
-// 	duduCmd.AddCommand(lastCmd)
-// }
-
 var lastCmd = &cobra.Command{
 	Use:   "last [path]",
 	Short: "Show the difference between this run and the last",

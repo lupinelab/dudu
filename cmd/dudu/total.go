@@ -9,10 +9,6 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// func init() {
-// 	duduCmd.AddCommand(totalCmd)
-// }
-
 var totalCmd = &cobra.Command{
 	Use:   "total [path]",
 	Short: "Show the difference between this run and the first",
