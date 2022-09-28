@@ -3,8 +3,8 @@ package dudu
 import (
 	"fmt"
 	"os"
-	"strings"
 	"path/filepath"
+	"strings"
 
 	dudu "git.lupinelab.co.uk/lupinelab/dudu/internal"
 	"github.com/spf13/cobra"
@@ -49,7 +49,7 @@ var lastCmd = &cobra.Command{
 
 		// Print comparison
 		dudu.PrintDuduComparison(cmd, filePath, duduThisRun, duduCompareTarget)
-		
+
 		// Make file to write output into
 		rawDuLastRun, err := os.Create(dudu.TempDir + "/dudu" + strings.ReplaceAll(filePath, "/", ".") + ".last")
 		if err != nil {
@@ -57,7 +57,7 @@ var lastCmd = &cobra.Command{
 			return
 		}
 		defer rawDuLastRun.Close()
-		
+
 		// Write rawDuThisRun to file
 		_, err = rawDuLastRun.WriteString(string(rawDuThisRun))
 		if err != nil {

@@ -47,7 +47,7 @@ func PrintDuduComparison(cmd *cobra.Command, filePath string, thisRun map[string
 	}
 
 	// get comparison file
-	compareFilePath, err := filepath.Abs(TempDir + "/dudu" + strings.ReplaceAll(filePath, "/", ".", ) + "." + suffix)
+	compareFilePath, err := filepath.Abs(TempDir + "/dudu" + strings.ReplaceAll(filePath, "/", ".") + "." + suffix)
 	if err != nil {
 		fmt.Println(err.Error())
 	}
