@@ -8,6 +8,7 @@ import (
 	"strconv"
 	"strings"
 
+	//dudu "git.lupinelab.co.uk/lupinelab/dudu/internal"
 	dudu "git.lupinelab.co.uk/lupinelab/dudu/internal"
 	"github.com/spf13/cobra"
 )
@@ -23,32 +24,32 @@ func init() {
 	duduCmd.CompletionOptions.DisableDefaultCmd = true
 }
 
-var TempDir = os.TempDir() + "/dudu"
-
 var duduCmd = &cobra.Command{
 	Use:   "dudu [path]",
 	Short: "dudu shows the difference in size of each folder at the specified path between each run or since the first run",
 	Args:  cobra.ExactArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
+		// Get absolute filepath
+		filePath, err := filepath.Abs(args[0])
+		if err != nil {
+			fmt.Println(err.Error())
+			return
+		}
+		
 		// Run the dudu
-		rawDu, err := dudu.Du(args[0])
+		rawDu, err := dudu.Du(filePath)
 		if err != nil {
 			fmt.Println(err.Error())
 			return
 		}
 
 		// Check/create tempdir
-		if _, err := os.Stat(TempDir); os.IsNotExist(err) { //use errors.Is?
-			os.Mkdir(TempDir, 0640)
+		if _, err := os.Stat(dudu.TempDir); os.IsNotExist(err) { // use errors.Is?
+			os.Mkdir(dudu.TempDir, 0640)
 		}
 
 		// Make file to write output into
-		filePath, err := filepath.Abs(args[0])
-		if err != nil {
-			fmt.Println(err.Error())
-			return
-		}
-		duduFirstFile, err := os.Create(TempDir + "/dudu" + strings.ReplaceAll(filePath, "/", ".") + ".first")
+		duduFirstFile, err := os.Create(dudu.TempDir + "/dudu" + strings.ReplaceAll(filePath, "/", ".") + ".first")
 		if err != nil {
 			fmt.Println(err.Error())
 			return
@@ -73,7 +74,7 @@ var duduCmd = &cobra.Command{
 
 		sort.Strings(keys)
 
-		fmt.Printf("FIRST - %v\n", args[0])
+		fmt.Printf("FIRST - %v\n", filePath)
 		for _, k := range keys {
 			size := strconv.Itoa(thisduData[k])
 			mFlag, _ := cmd.Flags().GetBool("mebibytes")
