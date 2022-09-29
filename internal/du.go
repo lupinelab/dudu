@@ -53,7 +53,7 @@ func PrintDuduComparison(cmd *cobra.Command, filePath string, thisRun map[string
 	}
 	compareFile, err := os.Stat(compareFilePath)
 
-	// Print header
+	// Print heading
 	fmt.Printf("%v - %v (since %v)\n", strings.ToUpper(cmd.Name()), filePath, compareFile.ModTime())
 
 	// Print Comparison
