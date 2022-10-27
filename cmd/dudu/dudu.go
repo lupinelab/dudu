@@ -77,7 +77,7 @@ var duduCmd = &cobra.Command{
 		for _, k := range keys {
 			size := strconv.Itoa(thisduData[k])
 			mFlag, _ := cmd.Flags().GetBool("mebibytes")
-			if mFlag == true {
+			if mFlag {
 				size = strconv.Itoa(thisduData[k]/1024) + "M"
 			}
 			space := strings.Repeat(" ", 20-len(size))
