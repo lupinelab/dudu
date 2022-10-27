@@ -24,7 +24,7 @@ var totalCmd = &cobra.Command{
 
 		// Check if there has been a run already
 		if _, err := os.Stat(dudu.TempDir + "/dudu" + strings.ReplaceAll(filePath, "/", ".") + ".first"); os.IsNotExist(err) {
-			fmt.Println("No previous run found, please run \"dudu <path>\" first")
+			fmt.Println("No previous run found, please run \"dudu <path>\"")
 			return
 		}
 
@@ -40,6 +40,9 @@ var totalCmd = &cobra.Command{
 
 		// convert firstRun rawDu to map[string]int
 		rawDuCompareTarget, err := os.ReadFile(dudu.TempDir + "/dudu" + strings.ReplaceAll(filePath, "/", ".") + ".first")
+		if err != nil {
+			fmt.Println(err.Error())
+		}
 		duduCompareTarget := dudu.ParseDuData(rawDuCompareTarget)
 
 		// Print comparision

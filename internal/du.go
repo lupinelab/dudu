@@ -52,6 +52,9 @@ func PrintDuduComparison(cmd *cobra.Command, filePath string, thisRun map[string
 		fmt.Println(err.Error())
 	}
 	compareFile, err := os.Stat(compareFilePath)
+	if err != nil {
+		fmt.Println(err.Error())
+	}
 
 	// Print heading
 	fmt.Printf("%v - %v (since %v)\n", strings.ToUpper(cmd.Name()), filePath, compareFile.ModTime())
@@ -68,7 +71,7 @@ func PrintDuduComparison(cmd *cobra.Command, filePath string, thisRun map[string
 		size := strconv.Itoa(thisRun[k])
 		change := strconv.Itoa((thisRun[k] - comparisonRun[k]))
 		mFlag, _ := cmd.Flags().GetBool("mebibytes")
-		if mFlag == true {
+		if mFlag {
 			size = strconv.Itoa(thisRun[k]/1024) + "M"
 			change = strconv.Itoa((thisRun[k]-comparisonRun[k])/1024) + "M"
 		}

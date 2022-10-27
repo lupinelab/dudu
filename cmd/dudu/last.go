@@ -45,6 +45,9 @@ var lastCmd = &cobra.Command{
 
 		// convert compareTarget rawDu to map[string]int
 		rawDuCompareTarget, err := os.ReadFile(dudu.TempDir + "/dudu" + strings.ReplaceAll(filePath, "/", ".") + "." + compareTarget)
+		if err != nil {
+			fmt.Println(err.Error())
+		}
 		duduCompareTarget := dudu.ParseDuData(rawDuCompareTarget)
 
 		// Print comparison

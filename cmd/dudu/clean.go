@@ -20,14 +20,14 @@ var cleanCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		// Check if we have an path or flag
 		allFlag, _ := cmd.Flags().GetBool("all")
-		if len(args) < 1 && allFlag == false {
+		if len(args) < 1 && !allFlag {
 			fmt.Println("Please specify a run path to clean or use \"dudu clean --all\" to clean all records")
 			return
 		}
 
 		// Remove all run records
 		count := 0
-		if allFlag == true {
+		if allFlag {
 			files, _ := os.ReadDir(dudu.TempDir)
 			for _, file := range files {
 				err := os.Remove(dudu.TempDir + "/" + file.Name())
